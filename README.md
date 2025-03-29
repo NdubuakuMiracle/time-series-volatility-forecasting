@@ -64,7 +64,7 @@ A **fully interactive web app** built with **Streamlit** enables users to:
 ✅ Visualize **trend charts**, **returns**, and **forecasted volatility**.  
 
 **App Deployment:** Hosted on **Render** for real-time access.
-[![Deploy on Render](https://img.shields.io/badge/Render-Live%20App-blue)](YOUR_RENDER_LINK_HERE)
+[![Deploy on Render](https://img.shields.io/badge/Render-Live%20App-blue)](https://time-series-volatility-forecasting.onrender.com)
 
 ---
 
