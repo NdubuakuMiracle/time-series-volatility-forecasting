@@ -5,6 +5,7 @@ matplotlib
 statsmodels
 arch
 plotly
+pydantic-settings
 python-dotenv
 pydantic
 requests
