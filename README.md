@@ -53,7 +53,7 @@ The **GARCH (Generalized Autoregressive Conditional Heteroskedasticity) model** 
 
 ## Deployment  
 
-###🌐 Interactive Forecasting App (Streamlit)  
+### 🌐 Interactive Forecasting App (Streamlit)  
 A **fully interactive web app** built with **Streamlit** enables users to:  
 ✅ **Input a stock ticker** (e.g., AAPL, TSLA, MSFT).  
 ✅ **Choose data limit** (full dataset or a custom limit).  
