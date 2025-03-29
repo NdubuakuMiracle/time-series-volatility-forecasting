@@ -36,7 +36,7 @@ A comparative **EDA** is performed to understand the differences in price moveme
     - Microsoft stock exhibits **more stable return patterns**.  
 
 ### 3️⃣ Volatility Forecasting - GARCH Model  
-The **GARCH (Generalized Autoregressive Conditional Heteroskedasticity) model** is employed to model stock price volatility.  
+The **GARCH (Generalized Autoregressive Conditional Heteroskedasticity) model** is employed to model and forecast Microsoft's (MSFT) stock price volatility.  
 
 - **Model Insights**:  
   - The **mean return (μ)** is statistically significant, confirming **non-zero expected returns**.  
@@ -53,7 +53,7 @@ The **GARCH (Generalized Autoregressive Conditional Heteroskedasticity) model** 
 
 ## Deployment  
 
-# 🔹 Interactive Forecasting App (Streamlit)  
+# 🌐 Interactive Forecasting App (Streamlit)  
 A **fully interactive web app** built with **Streamlit** enables users to:  
 ✅ Input a stock ticker  
 ✅ Fetch **live stock data**  
