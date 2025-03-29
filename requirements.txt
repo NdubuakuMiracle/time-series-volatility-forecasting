@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+matplotlib
+statsmodels
+arch
+plotly
+python-dotenv
+pydantic
+requests
+datetime
