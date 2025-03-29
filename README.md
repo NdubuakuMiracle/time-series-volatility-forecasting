@@ -50,20 +50,18 @@ The **GARCH (Generalized Autoregressive Conditional Heteroskedasticity) model** 
   - Investors can incorporate **volatility predictions** into their trading strategies.  
 
 ---
+
 ## Deployment  
 
-The interactive forecasting app is hosted on **Render**. You can access it here:  
-
-🔗 **Live App**: [Time-Series Volatility Forecaster](YOUR_RENDER_LINK_HERE)  
-
-## 🔹 Interactive Forecasting App (Streamlit)  
+# 🔹 Interactive Forecasting App (Streamlit)  
 A **fully interactive web app** built with **Streamlit** enables users to:  
 ✅ Input a stock ticker  
 ✅ Fetch **live stock data**  
 ✅ Compute **returns & volatility**  
 ✅ **Visualize** stock price trends & forecasts  
 
-**App Deployment:** Hosted on **Render** for real-time access.  
+**App Deployment:** Hosted on **Render** for real-time access.
+[![Deploy on Render](https://img.shields.io/badge/Render-Live%20App-blue)](YOUR_RENDER_LINK_HERE)
 
 ---
 
