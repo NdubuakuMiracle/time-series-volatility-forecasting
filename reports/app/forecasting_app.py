@@ -21,41 +21,26 @@ class StockVolatilityApp:
         self.df_stock = None  # Placeholder for stock price data
         self.returns = None  # Placeholder for stock returns data
 
-    def get_stock_data(self, ticker: str, limit):  
-        """Fetch stock price data for a given ticker symbol."""  
-        with st.spinner("Fetching stock data..."):  # Display a loading spinner  
-            # Validate ticker before making API call  
-            if not self.processor.validate_ticker(ticker):  
-                st.error("Invalid ticker symbol. Please try again.")  
-                return  
-            try:  
-                # If 'full' is selected, fetch all available data; otherwise, use the specified limit  
-                limit_value = None if limit == "full" else int(limit)  
-                raw_response = self.processor.get_stock_data(ticker, limit=limit_value)  
-    
-                # Store the raw response for later use (both for success and error)  
-                st.session_state["raw_response"] = raw_response  
-    
-                # Check for errors in the response  
-                if raw_response is None or isinstance(raw_response, dict) and ("Error Message" in raw_response or "Note" in raw_response):  
-                    st.error("Failed to retrieve stock data. Please try again.")  
-                    st.json(raw_response)  # Display raw response for debugging  
-                    return  
-    
-                # Convert raw response to DataFrame only if valid data is returned  
-                self.df_stock = self.processor.convert_to_dataframe(raw_response)  
-    
-                if self.df_stock is None or self.df_stock.empty:  
-                    st.error("No data returned for the specified ticker.")  
-    
-                # Store the fetched data in Streamlit's session state for later use  
-                st.session_state["df_stock"] = self.df_stock  
-    
-            except Exception as e:  
-                st.error(f"Error fetching stock data: {str(e)}")  
-                # Optionally display the raw response if available  
-                if 'raw_response' in st.session_state:  
-                    st.json(st.session_state["raw_response"])  # Show raw response for debugging  
+    def get_stock_data(self, ticker: str, limit):
+        """Fetch stock price data for a given ticker symbol."""
+        with st.spinner("Fetching stock data..."):  # Display a loading spinner
+            # Validate ticker before making API call
+            if not self.processor.validate_ticker(ticker):
+                # st.error("API request timeout: Daily limit of 25 API calls reached")
+                return
+            try:
+                # If 'full' is selected, fetch all available data; otherwise, use the specified limit
+                limit_value = None if limit == "full" else int(limit)
+                self.df_stock = self.processor.get_stock_data(ticker, limit=limit_value)
+
+                if self.df_stock is None or self.df_stock.empty:
+                    st.error("Failed to retrieve stock data. Please try again.")
+
+                # Store the fetched data in Streamlit's session state for later use
+                st.session_state["df_stock"] = self.df_stock
+
+            except Exception as e:
+                st.error(f"Error fetching stock data: {str(e)}")
 
     def compute_returns(self):
         """Calculate stock returns based on the fetched stock data."""
