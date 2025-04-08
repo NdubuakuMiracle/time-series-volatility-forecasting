@@ -24,23 +24,12 @@ class StockVolatilityApp:
     def get_stock_data(self, ticker: str, limit):
         """Fetch stock price data for a given ticker symbol."""
         with st.spinner("Fetching stock data..."):  # Display a loading spinner
-            # Validate ticker before making API call
-            if not self.processor.validate_ticker(ticker):
-                # st.error("API request timeout: Daily limit of 25 API calls reached")
-                return
-            try:
-                # If 'full' is selected, fetch all available data; otherwise, use the specified limit
-                limit_value = None if limit == "full" else int(limit)
-                self.df_stock = self.processor.get_stock_data(ticker, limit=limit_value)
+            # If 'full' is selected, fetch all available data; otherwise, use the specified limit
+            limit_value = None if limit == "full" else int(limit)
+            self.df_stock = self.processor.get_stock_data(ticker, limit=limit_value)
 
-                if self.df_stock is None or self.df_stock.empty:
-                    st.error("Failed to retrieve stock data. Please try again.")
-
-                # Store the fetched data in Streamlit's session state for later use
-                st.session_state["df_stock"] = self.df_stock
-
-            except Exception as e:
-                st.error(f"Error fetching stock data: {str(e)}")
+            # Store the fetched data in Streamlit's session state for later use
+            st.session_state["df_stock"] = self.df_stock
 
     def compute_returns(self):
         """Calculate stock returns based on the fetched stock data."""
