@@ -26,7 +26,7 @@ class StockVolatilityApp:
         with st.spinner("Fetching stock data..."):  # Display a loading spinner
             # Validate ticker before making API call
             if not self.processor.validate_ticker(ticker):
-                st.error("API request timeout or Invalid ticker symbol. Please enter a valid one.")
+                # st.error("API request timeout or Invalid ticker symbol. Please enter a valid one.")
                 return
             try:
                 # If 'full' is selected, fetch all available data; otherwise, use the specified limit
