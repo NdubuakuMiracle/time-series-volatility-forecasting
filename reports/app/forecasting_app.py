@@ -24,10 +24,6 @@ class StockVolatilityApp:
     def get_stock_data(self, ticker: str, limit):  
         """Fetch stock price data for a given ticker symbol."""  
         with st.spinner("Fetching stock data..."):  # Display a loading spinner  
-            # Validate ticker before making API call  
-            if not self.processor.validate_ticker(ticker):  
-                st.error("Invalid ticker symbol. Please try again.")  
-                return  
             try:  
                 # If 'full' is selected, fetch all available data; otherwise, use the specified limit  
                 limit_value = None if limit == "full" else int(limit)  
@@ -55,8 +51,8 @@ class StockVolatilityApp:
                 st.error(f"Error fetching stock data: {str(e)}")  
                 # Optionally display the raw response if available  
                 if 'raw_response' in st.session_state:  
-                    st.json(st.session_state["raw_response"])  # Show raw response for debugging  
-
+                    st.json(st.session_state["raw_response"])  # Show raw response for debugging 
+                    
     def compute_returns(self):
         """Calculate stock returns based on the fetched stock data."""
         if self.df_stock is not None:
