@@ -79,7 +79,7 @@ class APIStockProcessor:
         response_data = response.json()
         stock_data = response_data.get("Time Series (Daily)", {})
         if not stock_data:
-            raise ValueError(f"Invalid API call for {ticker}.")
+            raise ValueError(f"Invalid API call for {ticker}. Please enter a valid ticker symbol.")
 
         # Convert the data to a DataFrame and clean it
         df_stock = pd.DataFrame.from_dict(stock_data, orient="index", dtype=float)
