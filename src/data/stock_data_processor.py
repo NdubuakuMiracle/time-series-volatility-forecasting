@@ -75,11 +75,28 @@ class APIStockProcessor:
         )
         # Make a GET request to the URL
         response = requests.get(url=url)
+
+        # Check for HTTP errors
+        response.raise_for_status()  # Raise an HTTPError for bad responses
+
         # Extract the data from the response
         response_data = response.json()
         stock_data = response_data.get("Time Series (Daily)", {})
+
+        # Check if there is an error message in the response
+        if "Error Message" in response_data:
+            raise ValueError(
+                f"Error encountered while fetching data: {response_data['Error Message']}"
+            )
+
+        # Check if the response contains valid data
         if not stock_data:
-            raise ValueError(f"Invalid API call for {ticker}. Please enter a valid ticker symbol.")
+            raise ValueError(
+                f"Invalid API call for {ticker}. Please enter a valid ticker symbol."
+            )
+
+        if "Note" in response_data:
+            raise ValueError("Rate limit exceeded. Please wait and try again.")
 
         # Convert the data to a DataFrame and clean it
         df_stock = pd.DataFrame.from_dict(stock_data, orient="index", dtype=float)
@@ -158,27 +175,3 @@ class APIStockProcessor:
 
         # Return as dictionary
         return predicted_output.to_dict()
-
-    def validate_ticker(self, ticker: str) -> bool:
-        """
-        Validate a stock ticker using Alpha Vantage's SYMBOL_SEARCH.
-
-        Returns True if the ticker exists, else False.
-        """
-        url = (
-            "https://www.alphavantage.co/query?"
-            "function=SYMBOL_SEARCH&"
-            f"keywords={ticker}&"
-            f"apikey={self.__api_key}"
-        )
-
-        response = self.session.get(url)
-        data = response.json()
-
-        # Handle API rate limit error
-        if "Note" in data:
-            print("Rate limit exceeded. Waiting 60 seconds...")
-            time.sleep(60)
-            return self.validate_ticker(ticker)  # Retry after waiting
-
-        return bool(data.get("bestMatches"))
