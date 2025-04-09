@@ -64,6 +64,7 @@ class APIStockProcessor:
         pd.DataFrame
             DataFrame containing stock data with columns: open, high, low, close, volume.
         """
+        print("DEBUG ALPHA KEY:", self.__api_key)
         # Create the URL
         url = (
             "https://www.alphavantage.co/query?"
