@@ -3,6 +3,8 @@ from arch import arch_model
 import pandas as pd
 import requests
 import time
+import os
+
 
 # Import settings from the config file
 from config import settings
@@ -65,6 +67,8 @@ class APIStockProcessor:
             DataFrame containing stock data with columns: open, high, low, close, volume.
         """
         print("DEBUG ALPHA KEY:", self.__api_key)
+        print("ENV KEY CHECK:", os.getenv("ALPHA_API_KEY"))
+
         # Create the URL
         url = (
             "https://www.alphavantage.co/query?"
