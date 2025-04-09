@@ -81,23 +81,20 @@ class APIStockProcessor:
 
         # Extract the data from the response
         response_data = response.json()
-        stock_data = response_data.get("Time Series (Daily)", {})
 
         # Check if there is an error message in the response
         if "Error Message" in response_data:
             raise ValueError(
                 f"Error encountered while fetching data: {response_data['Error Message']}"
             )
-
+        if "Note" in response_data:
+            raise ValueError("Rate limit exceeded. Please wait and try again.")
         # Check if the response contains valid data
+        stock_data = response_data.get("Time Series (Daily)", {})
         if not stock_data:
             raise ValueError(
                 f"Invalid API call for {ticker}. Please enter a valid ticker symbol."
             )
-
-        if "Note" in response_data:
-            raise ValueError("Rate limit exceeded. Please wait and try again.")
-
         # Convert the data to a DataFrame and clean it
         df_stock = pd.DataFrame.from_dict(stock_data, orient="index", dtype=float)
         df_stock.index = pd.to_datetime(df_stock.index)  # Convert the index to datetime
