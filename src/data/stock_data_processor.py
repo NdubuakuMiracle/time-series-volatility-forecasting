@@ -3,7 +3,6 @@ from arch import arch_model
 import pandas as pd
 import requests
 import time
-import os
 
 
 # Import settings from the config file
@@ -66,9 +65,6 @@ class APIStockProcessor:
         pd.DataFrame
             DataFrame containing stock data with columns: open, high, low, close, volume.
         """
-        print("DEBUG ALPHA KEY:", self.__api_key)
-        print("ENV KEY CHECK:", os.getenv("ALPHA_API_KEY"))
-
         # Create the URL
         url = (
             "https://www.alphavantage.co/query?"
@@ -94,12 +90,14 @@ class APIStockProcessor:
             )
         if "Note" in response_data:
             raise ValueError("Rate limit exceeded. Please wait and try again.")
+            
         # Check if the response contains valid data
-        stock_data = response_data.get("Time Series (Daily)", {})
-        if not stock_data:
-            raise ValueError(
+        if "Time Series (Daily)" not in response_data.keys():
+            raise Exception(
                 f"Invalid API call for {ticker}. Please enter a valid ticker symbol."
             )
+        stock_data = response_data.get("Time Series (Daily)", {})
+
         # Convert the data to a DataFrame and clean it
         df_stock = pd.DataFrame.from_dict(stock_data, orient="index", dtype=float)
         df_stock.index = pd.to_datetime(df_stock.index)  # Convert the index to datetime
