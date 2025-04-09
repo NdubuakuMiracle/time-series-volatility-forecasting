@@ -96,7 +96,7 @@ class APIStockProcessor:
             raise Exception(
                 f"Invalid API call for {ticker}. Please enter a valid ticker symbol."
             )
-        stock_data = response_data.get("Time Series (Daily)", {})
+        stock_data = response_data["Time Series (Daily)"]
 
         # Convert the data to a DataFrame and clean it
         df_stock = pd.DataFrame.from_dict(stock_data, orient="index", dtype=float)
